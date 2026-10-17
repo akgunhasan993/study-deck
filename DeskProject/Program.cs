@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Text.Json;
 
 namespace DeskProject
 {
@@ -7,7 +8,7 @@ namespace DeskProject
     {
         static void Main(string[] args)
         {
-            List<Card> cards = new List<Card>();
+            List<Card> cards = LoadCards();
             
             bool running = true;
             
@@ -33,6 +34,9 @@ namespace DeskProject
             
                         cards.Add(card);
                         Console.WriteLine("Card added list! ");
+                        
+                        SaveCards(cards);
+                        LoadCards();
                         break;
                     
                     case "2":
@@ -81,6 +85,8 @@ namespace DeskProject
                             Console.WriteLine("----OF THE RESULT----");
                             Console.WriteLine($"You knew {correctCount} out of {dueCards.Count} cards");
                         }
+                        SaveCards(cards);
+                        LoadCards();
                         break;
                     
                     default:
@@ -97,6 +103,25 @@ namespace DeskProject
             Console.WriteLine("1- Add card\n2-Cards list\n3-Study\n0-Exit");
             string choice = Console.ReadLine();
             return choice;
+        }
+
+        private const string FilePath = "cards.json";
+
+        public static void SaveCards(List<Card> cards)
+        {
+            string json = JsonSerializer.Serialize(cards, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(FilePath, json);
+        }
+
+        public static List<Card> LoadCards()
+        {
+            if (!File.Exists(FilePath))
+            {
+                return new List<Card>();
+            }
+
+            string json = File.ReadAllText(FilePath);
+            return JsonSerializer.Deserialize<List<Card>>(json) ?? new List<Card>();
         }
     }
 }
