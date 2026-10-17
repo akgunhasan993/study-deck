@@ -6,12 +6,20 @@ namespace DeskProject
     {
         static void Main(string[] args)
         {
-            Card card = new Card(5, "hasan", "akgun");
-            card.LastReviewedDate = DateTime.Now.AddDays(-2);
+            List<Card> cards = new List<Card>();
             
-            card.Review(true);
-            Console.WriteLine(card.BoxNumber);
-            Console.WriteLine(card.IsDue());
+            Console.WriteLine("Question? ");
+            string question = Console.ReadLine() ?? string.Empty;
+
+            Console.WriteLine("Answer? ");
+            string answer = Console.ReadLine() ?? string.Empty;
+
+            Card card = new Card(1, question, answer);
+            
+            cards.Add(card);
+            Console.WriteLine("Card added list! ");
+
+            Console.WriteLine(cards.Count);
             
         }
     }
