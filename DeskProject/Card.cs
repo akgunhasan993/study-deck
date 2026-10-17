@@ -49,8 +49,24 @@ public class Card
         {
             return false;
         }
+    }
+
+    public void Review(bool knewIt)
+    {
+        if (knewIt)
+        {
+            if (BoxNumber < 5)
+            {
+                BoxNumber++;
+            }
+            
+        }
+        else
+        {
+            BoxNumber = 1;
+        }
         
-        
+        LastReviewedDate = DateTime.Now;
     }
     
     
