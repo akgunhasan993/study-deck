@@ -58,6 +58,7 @@ namespace DeskProject
                         }
                         else
                         {
+                            int correctCount = 0;
                             foreach (Card c in dueCards)
                             {
                                 Console.WriteLine(c.Question);
@@ -67,8 +68,9 @@ namespace DeskProject
 
                                 if (c.Answer.Trim().ToLower() == idea.Trim().ToLower())
                                 {
-                                    Console.WriteLine("Correct answer,congrulations!");
+                                    Console.WriteLine("Correct answer,congratulations!");
                                     c.Review(true);
+                                    correctCount++;
                                 }
                                 else
                                 {
@@ -76,6 +78,8 @@ namespace DeskProject
                                     c.Review(false);
                                 }
                             }
+                            Console.WriteLine("----OF THE RESULT----");
+                            Console.WriteLine($"You knew {correctCount} out of {dueCards.Count} cards");
                         }
                         break;
                     
