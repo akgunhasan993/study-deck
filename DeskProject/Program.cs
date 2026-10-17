@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace DeskProject
 {
@@ -48,6 +49,36 @@ namespace DeskProject
                         }
                         break;
                     
+                    case "3":
+                        var dueCards = cards.Where(c => c.IsDue()).ToList();
+                        
+                        if (dueCards.Count < 1)
+                        {
+                            Console.WriteLine("You don't have a card to work!");
+                        }
+                        else
+                        {
+                            foreach (Card c in dueCards)
+                            {
+                                Console.WriteLine(c.Question);
+                                Console.Write("Answer? ");
+                            
+                                string idea =  Console.ReadLine() ?? string.Empty;
+
+                                if (c.Answer.Trim().ToLower() == idea.Trim().ToLower())
+                                {
+                                    Console.WriteLine("Correct answer,congrulations!");
+                                    c.Review(true);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Incorrect answer; Answer => " + c.Answer);
+                                    c.Review(false);
+                                }
+                            }
+                        }
+                        break;
+                    
                     default:
                         Console.WriteLine("Invalid choice!");
                         break;
@@ -59,7 +90,7 @@ namespace DeskProject
         public static string Choose()
         {
             Console.WriteLine("Choose a number: ");
-            Console.WriteLine("1- Add card\n2-Cards list\n0-Exit");
+            Console.WriteLine("1- Add card\n2-Cards list\n3-Study\n0-Exit");
             string choice = Console.ReadLine();
             return choice;
         }

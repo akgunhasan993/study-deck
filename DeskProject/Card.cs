@@ -9,7 +9,7 @@ public class Card
     
     public string Answer { get; set; } // kartın cevabı için
     
-    public DateTime LastReviewedDate { get; set; } = DateTime.Now;
+    public DateTime LastReviewedDate { get; set; } = DateTime.Now.AddDays(-1);
     
    
 
